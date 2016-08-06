@@ -1,0 +1,61 @@
+<p id="number"></p>
+<video id="their-video" autoplay controls></video>
+<video id="my-video" muted="true" autoplay controls></video>
+<button id="call">Call</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="peer.js"></script>
+<script>
+
+  function guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+  }
+
+  var id = guid();
+
+  var peer = new Peer(id,{
+    host: 'webrtc-server-peerjs.herokuapp.com',
+    port: 443,
+    secure: true,
+    debug: 1
+  });
+
+  var constraints = window.constraints = {
+    audio: true,
+    video: true
+  };
+
+  function handleCall(call) {
+    call.on('stream', function(remoteStream) {
+      console.log('set thier');
+      $('#their-video').prop('src', URL.createObjectURL(remoteStream));
+    });
+  }
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(function(stream) {
+    window.localStream = stream;
+    $('#my-video').prop('src', URL.createObjectURL(stream));
+    peer.on('call', function(call) {
+    call.answer(stream); // Answer the call with an A/V stream.
+    handleCall(call);
+  });
+
+  });
+
+  $(document).ready(function() {
+    $('#number').text(id);
+    $('#call').on('click', function() {
+      var id = prompt("Enter caller number");
+      var call = peer.call(id, window.localStream);
+      handleCall(call);
+    })
+  })
+
+</script>
