@@ -1,4 +1,4 @@
-# Video Call powered by webRTC
+# Video Call powered by WebRTC
 
 WebRTC is a free, open project that provides browsers and mobile applications with Real-Time Communications (RTC) capabilities via simple APIs.
 
@@ -10,3 +10,6 @@ WebRTC is a free, open project that provides browsers and mobile applications wi
 **PeerJS Server:** https://webrtc-server-peerjs.herokuapp.com/
 
 In case your video is not visble in chrome, try enabling: chrome://flags/#enable-experimental-web-platform-features
+
+Powered by <br/>
+![WebRTC](https://webrtc.org/assets/images/webrtc-logo-horiz-retro-750x140.png)
