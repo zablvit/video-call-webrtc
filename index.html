@@ -41,10 +41,15 @@
 
     var id = guid();
     // Initialize a new peer and connect to our server
+    var webrtc_server_host = prompt("Enter WebRTC server hostname (default localhost)", 'localhost');
+    var webrtc_server_port = prompt("Enter WebRTC server port (default 9000)", 9000);
+    var webrtc_server_key = prompt("Enter WebRTC server key (default peerjs)", 'peerjs');
+
+
     var peer = new Peer(id, {
-        host: 'webrtc-server-peerjs.herokuapp.com',
-        port: 443,
-        secure: true,
+        host: webrtc_server_host,
+        port: webrtc_server_port,
+        key: webrtc_server_key,
         debug: 1
     });
 
