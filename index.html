@@ -12,9 +12,12 @@
 <div class="container">
 
     <div class="page-header">
-        <h3>Video Call <small>powered by WebRTC, Your ID: <b><span id="number"></span></b></small> </h3>
+        <h3>Video Call
+            <small>powered by WebRTC, Your ID: <b><span id="number"></span></b></small>
+        </h3>
     </div>
-    <p>WebRTC is a free, open project that provides browsers and mobile applications with Real-Time Communications (RTC) capabilities via simple APIs.</p>
+    <p>WebRTC is a free, open project that provides browsers and mobile applications with Real-Time Communications (RTC)
+        capabilities via simple APIs.</p>
 
     <video style="display: none" id="their-video" width="640" height="480" autoplay controls></video>
     <button id="call" class="btn btn-lg btn-primary">Start a Video Call</button>
@@ -23,20 +26,17 @@
 <video id="my-video" class="float" width="320" height="240" muted="true" autoplay controls></video>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
 <script>
 
     // Create random id for everyone
     function guid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
-        }
-
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                s4() + '-' + s4() + s4() + s4();
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
     }
 
     var id = guid();
@@ -73,15 +73,15 @@
         video: true
     };
     navigator.mediaDevices.getUserMedia(constraints)
-            .then(function (stream) {
-                window.localStream = stream;
-                $('#my-video').prop('src', URL.createObjectURL(stream));
-                peer.on('call', function (call) {
-                    call.answer(stream); // Answer the call with an A/V stream.
-                    handleCall(call);
-                });
-
+        .then(function (stream) {
+            window.localStream = stream;
+            $('#my-video').prop('src', URL.createObjectURL(stream));
+            peer.on('call', function (call) {
+                call.answer(stream); // Answer the call with an A/V stream.
+                handleCall(call);
             });
+
+        });
 
     $(document).ready(function () {
         $('#number').text(id);
